@@ -3,6 +3,7 @@ dotenv.config();
 import express from "express";
 import cors from "cors";
 import { router } from "../routes/users.js";
+import { routerAuth } from "../routes/auth.js";
 import { dbconect } from "../database/config.js";
 
 export default class Server {
@@ -10,6 +11,7 @@ export default class Server {
     this.app = express();
     this.port = process.env.PORT;
     this.usersPath = "/api/users";
+    this.authPath = "/api/auth";
     this.dbConnection();
     this.middlewares();
     this.routes();
@@ -27,6 +29,7 @@ export default class Server {
 
   routes() {
     this.app.use(this.usersPath, router);
+    this.app.use(this.authPath, routerAuth);
   }
 
   listen() {

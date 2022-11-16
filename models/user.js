@@ -38,8 +38,10 @@ const userSchema = Schema({
 });
 
 userSchema.methods.toJSON = function () {
-  const { __v, password, ...user } = this.toObject();
-  return user;
+  const { __v, password, _id, ...user } = this.toObject();
+  let uid = _id;
+  const orderedKeysOfUser = Object.assign({ uid }, user);
+  return orderedKeysOfUser;
 };
 
 export default model("User", userSchema);

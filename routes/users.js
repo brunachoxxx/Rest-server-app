@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { body, check } from "express-validator";
 import { validation } from "../middlewares/validations.js";
+import { jwtValidation } from "../middlewares/jwt-validation.js";
+import { hasRole } from "../middlewares/role-validation.js";
+
 import {
   isEmailOnDb,
   isRoleValid,
@@ -41,8 +44,12 @@ router.post(
 router.patch("/", patchUsers);
 router.delete(
   "/:id",
-  check("id", "invalid Id").isMongoId(),
-  check("id").custom(isValidId),
-  validation,
+  [
+    jwtValidation,
+    hasRole("ADMIN_ROLE", "SELL_ROLE"),
+    check("id", "invalid Id").isMongoId(),
+    check("id").custom(isValidId),
+    validation,
+  ],
   delUsers
 );

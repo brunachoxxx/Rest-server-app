@@ -57,6 +57,7 @@ export const patchUsers = (req, res = response) => {
 
 export const delUsers = async (req, res = response) => {
   const { id } = req.params;
+
   const userD = await User.findByIdAndUpdate(
     id,
     { state: false },
