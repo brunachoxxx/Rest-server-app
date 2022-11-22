@@ -33,13 +33,16 @@
         //Google Id token
         //console.log("token_id", response.credential);
         const body = { token_id: response.credential };
-        fetch("http://localhost:3000/api/auth/google", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(body),
-        })
+        fetch(
+          "https://webserver-restserver-skeleton.herokuapp.com/api/auth/google",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(body),
+          }
+        )
           .then((resp) => resp.json())
           .then((data) => {
             console.log(data);
