@@ -1,3 +1,4 @@
+import res from "express/lib/response.js";
 import Category from "../models/category.js";
 import Product from "../models/product.js";
 import Role from "../models/roles.js";
@@ -52,4 +53,12 @@ export const isProductNameOnDb = async (name = "") => {
   if (nameExist) {
     throw new Error(`Product with name: ${name} already exist`);
   }
+};
+
+export const isCollectionValid = async (collections = [], collection = "") => {
+  const isValidCollection = collections.includes(collection);
+  if (!isValidCollection) {
+    throw new Error(`Collection ${collection} is not Valid`);
+  }
+  return true;
 };
